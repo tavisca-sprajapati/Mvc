@@ -1797,6 +1797,7 @@ namespace Microsoft.AspNetCore.Mvc.Internal
             await invoker.InvokeAsync();
 
             // Assert
+            expected.Verify(r => r.ExecuteResultAsync(It.IsAny<ActionContext>()), Times.Once());
             Assert.Same(expected.Object, context.Result);
             Assert.True(context.Canceled);
             Assert.False(invoker.ControllerFactory.CreateCalled);
@@ -2751,7 +2752,7 @@ namespace Microsoft.AspNetCore.Mvc.Internal
             Assert.NotNull(listener.AfterAction?.ActionDescriptor);
             Assert.NotNull(listener.AfterAction?.HttpContext);
         }
-        
+
         public async Task InvokeAction_ExceptionBubbling_AsyncActionFilter_To_ResourceFilter()
         {
             // Arrange
