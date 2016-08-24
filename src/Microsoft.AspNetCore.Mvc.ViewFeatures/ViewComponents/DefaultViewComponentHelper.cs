@@ -138,12 +138,11 @@ namespace Microsoft.AspNetCore.Mvc.ViewComponents
         {
             IDictionary<string, object> argumentDictionary;
 
-            var methodParams = descriptor.MethodInfo.GetParameters();
-            if (methodParams.Length == 1 && methodParams[0].ParameterType.IsAssignableFrom(arguments.GetType()))
+            if (descriptor.Parameters.Count == 1 && descriptor.Parameters[0].ParameterType.IsAssignableFrom(arguments.GetType()))
             {
                 argumentDictionary = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase)
                 {
-                    { methodParams[0].ParameterType.Name, arguments }
+                    { descriptor.Parameters[0].ParameterType.Name, arguments }
                 };
             }
             else
